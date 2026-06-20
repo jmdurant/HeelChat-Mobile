@@ -248,7 +248,7 @@ private fun SessionDetail(
     val scrollState = rememberScrollState()
 
     // Auto-scroll the transcript/live area to the bottom as new output streams in.
-    LaunchedEffect(uiState.liveOutput, uiState.transcript) {
+    LaunchedEffect(uiState.liveTurns, uiState.transcript) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
@@ -290,14 +290,8 @@ private fun SessionDetail(
                             .padding(horizontal = 16.dp, vertical = 8.dp),
                     ) {
                         uiState.transcript.forEach { msg -> TranscriptTurn(msg) }
-                        if (uiState.liveOutput.isNotEmpty()) {
-                            Text(
-                                text = uiState.liveOutput,
-                                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                                color = MaterialTheme.colorScheme.onSurface,
-                                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                            )
-                        }
+                        // Live turns render with the same USER/ASSISTANT labels as history.
+                        uiState.liveTurns.forEach { msg -> TranscriptTurn(msg) }
                         if (uiState.isRunning) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,

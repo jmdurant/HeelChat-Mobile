@@ -105,8 +105,8 @@ class RemoteApi constructor(
                             val mapped = parseFrame(event, data.toString())
                             if (mapped != null) {
                                 emit(mapped)
-                                // Stop once the run reports idle — the agent is done.
-                                if (mapped is RemoteEvent.Status && !mapped.running) return@execute
+                                // Keep the stream open across turns (idle just means this turn ended);
+                                // the caller cancels it when the detail view closes.
                             }
                         }
                         event = ""

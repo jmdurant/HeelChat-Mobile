@@ -33,8 +33,8 @@ data class HeelCodeUiState(
     val selected: RemoteSession? = null,
     /** Loaded transcript for [selected]. */
     val transcript: List<RemoteMessage> = emptyList(),
-    /** Live output streamed since the detail view opened, appended in arrival order. */
-    val liveOutput: String = "",
+    /** Live turns (user + assistant), labelled like history, streamed since the view opened. */
+    val liveTurns: List<RemoteMessage> = emptyList(),
     val isDetailLoading: Boolean = false,
     /** True while the owning machine is actively running the agent. */
     val isRunning: Boolean = false,
@@ -82,7 +82,7 @@ class HeelCodeViewModel(
             it.copy(
                 selected = session,
                 transcript = emptyList(),
-                liveOutput = "",
+                liveTurns = emptyList(),
                 isDetailLoading = true,
                 isRunning = false,
                 detailError = null,
@@ -112,10 +112,11 @@ class HeelCodeViewModel(
         viewModelScope.launch {
             when (val result = remoteRepository.continueSession(session.id, trimmed)) {
                 is Result.Success -> {
-                    _uiState.update { it.copy(isSending = false, isRunning = true) }
-                    // Reflect the just-sent instruction locally so the user sees it immediately.
-                    appendOutput("\n\n> $trimmed\n")
-                    // Ensure we're streaming output for this run (re-attach if the prior stream ended).
+                    // Add our message as a user turn immediately (we ignore the hub's echo of it).
+                    _uiState.update {
+                        it.copy(isSending = false, isRunning = true, liveTurns = it.liveTurns + RemoteMessage(role = "user", text = trimmed))
+                    }
+                    // The stream stays open across turns now; only re-attach if it somehow dropped.
                     if (eventsJob?.isActive != true) startStreaming(session.id)
                 }
                 is Result.Error -> _uiState.update {
@@ -134,7 +135,7 @@ class HeelCodeViewModel(
             it.copy(
                 selected = null,
                 transcript = emptyList(),
-                liveOutput = "",
+                liveTurns = emptyList(),
                 isRunning = false,
                 detailError = null,
             )
@@ -146,18 +147,28 @@ class HeelCodeViewModel(
         eventsJob = viewModelScope.launch {
             remoteRepository.events(id).collect { event ->
                 when (event) {
-                    is RemoteEvent.Output -> appendOutput(event.text)
+                    is RemoteEvent.Output ->
+                        // role "user" is the hub echoing our own message — we already added it in send().
+                        if (event.role != "user" && event.text.isNotBlank()) appendAssistant(event.text)
                     is RemoteEvent.Status -> _uiState.update { it.copy(isRunning = event.running) }
                 }
             }
-            // Flow completed (stream closed or run went idle).
+            // Stream ended (view closed / connection dropped).
             _uiState.update { it.copy(isRunning = false) }
         }
     }
 
-    private fun appendOutput(text: String) {
-        if (text.isEmpty()) return
-        _uiState.update { it.copy(liveOutput = it.liveOutput + text) }
+    // Append agent output to the current assistant turn, or start one if the last turn was the user's.
+    private fun appendAssistant(text: String) {
+        _uiState.update { st ->
+            val turns = st.liveTurns
+            val last = turns.lastOrNull()
+            if (last != null && last.role == "assistant") {
+                st.copy(liveTurns = turns.dropLast(1) + last.copy(text = last.text + text))
+            } else {
+                st.copy(liveTurns = turns + RemoteMessage(role = "assistant", text = text))
+            }
+        }
     }
 
     private fun groupByMachine(sessions: List<RemoteSession>): List<MachineGroup> =
