@@ -77,7 +77,7 @@ class ThemeDataStore(
         prefs[KEY_THEME].toThemeMode()
     }
 
-    /** Accent seed color as an ARGB int. Defaults to the lavender brand hue. */
+    /** Accent seed color as an ARGB int. Defaults to Carolina blue (HeelChat brand). */
     val accentColor: Flow<Int> = dataStore.data.map { prefs ->
         prefs[KEY_ACCENT_COLOR] ?: DEFAULT_ACCENT_COLOR
     }
@@ -106,8 +106,8 @@ class ThemeDataStore(
     }
 
     companion object {
-        /** Lavender brand hue (ARGB) used when no accent has been chosen. */
-        val DEFAULT_ACCENT_COLOR: Int = 0xFF8B5CF6.toInt()
+        /** Carolina blue (ARGB) — HeelChat brand accent, used when no accent has been chosen. */
+        val DEFAULT_ACCENT_COLOR: Int = 0xFF4B9CD3.toInt()
 
         private val KEY_THEME = stringPreferencesKey("theme_mode")
         private val KEY_ACCENT_COLOR = intPreferencesKey("accent_color")
