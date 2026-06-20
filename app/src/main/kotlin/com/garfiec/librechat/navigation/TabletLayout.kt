@@ -33,6 +33,7 @@ import com.garfiec.librechat.core.ui.components.BannerDisplay
 import com.garfiec.librechat.feature.agents.navigation.AgentMarketplace
 import com.garfiec.librechat.feature.chat.navigation.NewChat
 import com.garfiec.librechat.feature.files.navigation.Files
+import com.garfiec.librechat.feature.heelcode.navigation.HeelCode
 import com.garfiec.librechat.feature.settings.navigation.SettingsTabbed
 import com.garfiec.librechat.feature.skills.navigation.SkillsList
 import com.garfiec.librechat.shared.navigation.MainNavDisplay
@@ -182,6 +183,9 @@ fun TabletLayout(
                         },
                         onSkillsClick = {
                             navigator.navigate(SkillsList)
+                        },
+                        onHeelCodeClick = {
+                            navigator.navigate(HeelCode)
                         },
                         modifier = Modifier
                             .width(SidebarWidth)

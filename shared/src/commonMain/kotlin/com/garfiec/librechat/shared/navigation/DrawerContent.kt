@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -83,6 +84,7 @@ import com.garfiec.librechat.shared.resources.cd_conversation_actions
 import com.garfiec.librechat.shared.resources.cd_search
 import com.garfiec.librechat.shared.resources.favorites
 import com.garfiec.librechat.shared.resources.files
+import com.garfiec.librechat.shared.resources.heelcode
 import com.garfiec.librechat.shared.resources.new_chat
 import com.garfiec.librechat.shared.resources.no_conversations_found
 import com.garfiec.librechat.shared.resources.remove_bookmark
@@ -110,6 +112,7 @@ fun DrawerContent(
     onAgentsClick: () -> Unit,
     onFilesClick: () -> Unit,
     onSkillsClick: () -> Unit,
+    onHeelCodeClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NavHostViewModel = koinViewModel(),
 ) {
@@ -132,6 +135,7 @@ fun DrawerContent(
         onAgentsClick = onAgentsClick,
         onFilesClick = onFilesClick,
         onSkillsClick = onSkillsClick,
+        onHeelCodeClick = onHeelCodeClick,
         onToggleFavorite = { data -> viewModel.toggleFavorite(data.conversationId, data.tags) },
         onRefresh = viewModel::refreshConversations,
         onLoadMore = viewModel::loadMoreConversations,
@@ -157,6 +161,7 @@ fun DrawerContent(
     onAgentsClick: () -> Unit,
     onFilesClick: () -> Unit,
     onSkillsClick: () -> Unit,
+    onHeelCodeClick: () -> Unit,
     modifier: Modifier = Modifier,
     onToggleFavorite: (DrawerConversationDisplayData) -> Unit = {},
     onRefresh: () -> Unit = {},
@@ -456,6 +461,11 @@ fun DrawerContent(
                 onClick = onSkillsClick,
             )
         }
+        DrawerFooterItem(
+            icon = Icons.Default.Terminal,
+            label = stringResource(Res.string.heelcode),
+            onClick = onHeelCodeClick,
+        )
         DrawerFooterItem(
             icon = Icons.Default.Folder,
             label = stringResource(Res.string.files),

@@ -47,6 +47,8 @@ import com.garfiec.librechat.feature.conversations.navigation.ArchivedConversati
 import com.garfiec.librechat.feature.conversations.navigation.conversationsEntries
 import com.garfiec.librechat.feature.files.navigation.Files
 import com.garfiec.librechat.feature.files.navigation.filesEntries
+import com.garfiec.librechat.feature.heelcode.navigation.HeelCode
+import com.garfiec.librechat.feature.heelcode.navigation.heelCodeEntries
 import com.garfiec.librechat.feature.settings.navigation.SettingsTabbed
 import com.garfiec.librechat.feature.settings.navigation.mcpServersEntry
 import com.garfiec.librechat.feature.settings.navigation.memoriesEntry
@@ -221,6 +223,10 @@ fun PhoneLayout(
                         scope.launch { drawerState.close() }
                         navigator.navigate(SkillsList)
                     },
+                    onHeelCodeClick = {
+                        scope.launch { drawerState.close() }
+                        navigator.navigate(HeelCode)
+                    },
                 )
             }
         },
@@ -323,6 +329,9 @@ fun MainNavDisplay(
                 onBack = { navigator.goBack() },
             )
             filesEntries(
+                onBack = { navigator.goBack() },
+            )
+            heelCodeEntries(
                 onBack = { navigator.goBack() },
             )
             settingsEntries(

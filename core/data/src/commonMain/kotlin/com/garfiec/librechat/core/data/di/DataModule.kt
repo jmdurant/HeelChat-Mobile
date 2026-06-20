@@ -45,6 +45,8 @@ import com.garfiec.librechat.core.data.repository.PresetRepository
 import com.garfiec.librechat.core.data.repository.PresetRepositoryImpl
 import com.garfiec.librechat.core.data.repository.PromptRepository
 import com.garfiec.librechat.core.data.repository.PromptRepositoryImpl
+import com.garfiec.librechat.core.data.repository.RemoteRepository
+import com.garfiec.librechat.core.data.repository.RemoteRepositoryImpl
 import com.garfiec.librechat.core.data.repository.RoleRepository
 import com.garfiec.librechat.core.data.repository.RoleRepositoryImpl
 import com.garfiec.librechat.core.data.repository.SearchRepository
@@ -196,6 +198,7 @@ val dataModule = module {
     singleOf(::PermissionsRepositoryImpl) bind PermissionsRepository::class
     singleOf(::PresetRepositoryImpl) bind PresetRepository::class
     singleOf(::PromptRepositoryImpl) bind PromptRepository::class
+    singleOf(::RemoteRepositoryImpl) bind RemoteRepository::class
     singleOf(::ShareRepositoryImpl) bind ShareRepository::class
     singleOf(::SkillsRepositoryImpl) bind SkillsRepository::class
     singleOf(::SpeechRepositoryImpl) bind SpeechRepository::class

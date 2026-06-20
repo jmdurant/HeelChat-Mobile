@@ -79,6 +79,7 @@ import com.garfiec.librechat.feature.conversations.di.conversationsModule
 import com.garfiec.librechat.feature.conversations.export.ConversationExporter
 import com.garfiec.librechat.feature.files.di.filesModule
 import com.garfiec.librechat.feature.files.platform.FileReader
+import com.garfiec.librechat.feature.heelcode.di.heelCodeModule
 import com.garfiec.librechat.feature.settings.di.settingsModule
 import com.garfiec.librechat.feature.skills.di.skillsFeatureModule
 import com.garfiec.librechat.shared.navigation.sharedAppModule
@@ -105,6 +106,7 @@ class KoinGraphVerificationTest {
         agentsModule,
         filesModule,
         skillsFeatureModule,
+        heelCodeModule,
         loggingModule,
     )
 

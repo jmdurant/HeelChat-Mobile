@@ -21,6 +21,7 @@ import com.garfiec.librechat.core.network.api.MemoriesApi
 import com.garfiec.librechat.core.network.api.MessagesApi
 import com.garfiec.librechat.core.network.api.PresetsApi
 import com.garfiec.librechat.core.network.api.PromptsApi
+import com.garfiec.librechat.core.network.api.RemoteApi
 import com.garfiec.librechat.core.network.api.RolesApi
 import com.garfiec.librechat.core.network.api.SearchApi
 import com.garfiec.librechat.core.network.api.ShareApi
@@ -38,6 +39,7 @@ import com.garfiec.librechat.feature.auth.di.authModule
 import com.garfiec.librechat.feature.chat.di.chatModule
 import com.garfiec.librechat.feature.conversations.di.conversationsModule
 import com.garfiec.librechat.feature.files.di.filesModule
+import com.garfiec.librechat.feature.heelcode.di.heelCodeModule
 import com.garfiec.librechat.feature.settings.di.settingsModule
 import com.garfiec.librechat.feature.skills.di.skillsFeatureModule
 import io.ktor.client.HttpClient
@@ -69,6 +71,7 @@ val iosSharedModule = module {
     includes(agentsModule)
     includes(filesModule)
     includes(skillsFeatureModule)
+    includes(heelCodeModule)
 
     single {
         Json {
@@ -132,6 +135,7 @@ val iosSharedModule = module {
     singleOf(::ShareApi)
     singleOf(::SearchApi)
     singleOf(::BalanceApi)
+    singleOf(::RemoteApi)
     singleOf(::BannerApi)
     singleOf(::KeysApi)
     singleOf(::ApiKeysApi)

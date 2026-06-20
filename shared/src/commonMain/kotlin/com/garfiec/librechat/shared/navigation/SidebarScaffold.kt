@@ -23,6 +23,7 @@ fun SidebarScaffold(
     onAgentsClick: () -> Unit,
     onFilesClick: () -> Unit,
     onSkillsClick: () -> Unit,
+    onHeelCodeClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NavHostViewModel = koinViewModel(),
 ) {
@@ -52,6 +53,7 @@ fun SidebarScaffold(
                     onAgentsClick = onAgentsClick,
                     onFilesClick = onFilesClick,
                     onSkillsClick = onSkillsClick,
+                    onHeelCodeClick = onHeelCodeClick,
                 )
             }
             is SidebarMode.Settings -> {

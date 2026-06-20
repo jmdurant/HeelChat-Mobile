@@ -9,6 +9,15 @@ pulls new features; re-apply this doc's small set of changes if they conflict.
 
 ## What's changed from upstream
 
+**HeelCode Remote tab** (`feature/heelcode`) — a native screen to view and continue your
+HeelCode coding-agent sessions from the phone. Open the **drawer → "HeelCode"** (terminal icon,
+under Skills). It reuses the app's existing server URL + HeelChat login: the front-door serves
+the remote-control hub at the same origin under `/rc/*`, so the shared authenticated Ktor client
+hits `<server>/rc/local-sessions`, `/rc/{id}/history`, `/rc/{id}/continue`, and streams
+`/rc/{id}/events` (SSE). Sessions are grouped by machine (offline ones dimmed); tap one to see
+its transcript, then send a message to resume it — the run happens on the owning machine.
+(Backend: see the `branding/REMOTE.md` in mcp-promptlab-automation.)
+
 **Branding** (display only — package/bundle IDs and the `librechat` deep-link scheme are
 left untouched so OAuth + builds keep working):
 - App name → **HeelChat**: `app/src/main/res/values/strings.xml` (`app_name`),

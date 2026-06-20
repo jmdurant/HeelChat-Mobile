@@ -6,6 +6,7 @@ import com.garfiec.librechat.feature.auth.navigation.authSerializersModule
 import com.garfiec.librechat.feature.chat.navigation.chatSerializersModule
 import com.garfiec.librechat.feature.conversations.navigation.conversationsSerializersModule
 import com.garfiec.librechat.feature.files.navigation.filesSerializersModule
+import com.garfiec.librechat.feature.heelcode.navigation.heelCodeSerializersModule
 import com.garfiec.librechat.feature.settings.navigation.settingsSerializersModule
 import com.garfiec.librechat.feature.skills.navigation.skillsSerializersModule
 import kotlinx.serialization.modules.SerializersModule
@@ -23,7 +24,8 @@ val navigationSerializersModule: SerializersModule =
         agentsSerializersModule +
         filesSerializersModule +
         settingsSerializersModule +
-        skillsSerializersModule
+        skillsSerializersModule +
+        heelCodeSerializersModule
 
 /**
  * Nav 3 [SavedStateConfiguration] with polymorphic serialization for all route types.
