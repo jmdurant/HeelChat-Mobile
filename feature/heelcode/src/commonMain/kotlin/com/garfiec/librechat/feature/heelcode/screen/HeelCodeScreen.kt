@@ -306,7 +306,7 @@ private fun SessionDetail(
                                 CircularProgressIndicator(modifier = Modifier.size(14.dp), strokeWidth = 2.dp)
                                 Spacer(Modifier.width(8.dp))
                                 Text(
-                                    text = "Agent is working…",
+                                    text = "working…",
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
