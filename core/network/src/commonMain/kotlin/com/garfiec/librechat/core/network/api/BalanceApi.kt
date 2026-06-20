@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.URLBuilder
+import io.ktor.http.path
 
 /**
  * Token balance — points at the PromptLab proxy's `/balance` route (the REAL UNC PromptLab
@@ -28,7 +29,7 @@ class BalanceApi constructor(
                 protocol = server.protocol
                 host = server.host
                 port = PROMPTLAB_PROXY_PORT
-                encodedPath = "/balance"
+                path("balance")
             }
         }.body()
     }

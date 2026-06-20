@@ -44,7 +44,7 @@ private data class StatusFrame(val status: String = "")
 
 /**
  * HeelCode Remote — drives the remote-control hub mounted at the SAME origin as the HeelChat
- * server under `/rc/*`. Reuses the shared authenticated [HttpClient] (base URL + LibreChat JWT
+ * server under the `/rc/` paths. Reuses the shared authenticated [HttpClient] (base URL + LibreChat JWT
  * are already attached by the client's defaultRequest + auth interceptor), so a relative
  * `path("rc/...")` resolves to `<server>/rc/...` with the bearer token in place.
  */

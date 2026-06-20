@@ -7,7 +7,7 @@ import com.garfiec.librechat.core.network.api.RemoteEvent
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Read/continue HeelCode coding-agent sessions through the remote-control hub at `<server>/rc/*`.
+ * Read/continue HeelCode coding-agent sessions through the remote-control hub at `<server>/rc/`.
  * One-shot reads return [Result]; the live event feed is a cold [Flow] the caller collects.
  */
 interface RemoteRepository {
