@@ -3,11 +3,11 @@ package com.garfiec.librechat.core.ui.theme
 import androidx.compose.ui.graphics.Color
 
 /**
- * The default accent seed color (the app's original lavender brand hue, `0xFF8B5CF6`).
+ * The default accent seed color — HeelChat's Carolina blue (`0xFF4B9CD3`).
  * Used to generate the Material 3 scheme when the user has not chosen a custom accent
  * and wallpaper-based dynamic color is off.
  */
-val DefaultAccentSeed = Color(0xFF8B5CF6)
+val DefaultAccentSeed = Color(0xFF4B9CD3)
 
 /**
  * Curated set of accent seed colors offered in the picker. The full Material 3
@@ -16,7 +16,8 @@ val DefaultAccentSeed = Color(0xFF8B5CF6)
  * (the default) is listed first.
  */
 val AccentColorPresets: List<Color> = listOf(
-    DefaultAccentSeed, // Lavender (default)
+    DefaultAccentSeed, // Carolina blue (default)
+    Color(0xFF13294B), // UNC navy
     Color(0xFF3B82F6), // Blue
     Color(0xFF6366F1), // Indigo
     Color(0xFF06B6D4), // Cyan

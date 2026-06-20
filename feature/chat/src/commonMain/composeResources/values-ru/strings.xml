@@ -55,7 +55,7 @@
     <string name="cd_more_tools">Ещё инструменты</string>
     <string name="cd_scroll_to_bottom">Прокрутить вниз</string>
     <string name="cd_select_model">Выбрать модель</string>
-    <string name="cd_librechat">LibreChat</string>
+    <string name="cd_librechat">HeelChat</string>
     <string name="cd_comparison_enabled">Сравнение включено</string>
 
     <!-- Content descriptions - Messages -->

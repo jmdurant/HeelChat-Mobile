@@ -70,7 +70,13 @@ class AccountDelegate(
             stateHandle.update { copy(isBalanceLoading = true) }
             when (val result = balanceRepository.getBalance()) {
                 is Result.Success -> {
-                    stateHandle.update { copy(tokenCredits = result.data.tokenCredits, isBalanceLoading = false) }
+                    stateHandle.update {
+                        copy(
+                            tokenCredits = result.data.tokenCredits,
+                            refillAmount = result.data.refillAmount,
+                            isBalanceLoading = false,
+                        )
+                    }
                 }
                 is Result.Error -> {
                     Logger.d(result.exception) { "Failed to load balance: ${result.message}" }

@@ -164,6 +164,7 @@ fun AccountSettingsContent(
             item(key = "balance_section") {
                 BalanceSection(
                     tokenCredits = uiState.tokenCredits,
+                    refillAmount = uiState.refillAmount,
                     isLoading = uiState.isBalanceLoading,
                 )
             }

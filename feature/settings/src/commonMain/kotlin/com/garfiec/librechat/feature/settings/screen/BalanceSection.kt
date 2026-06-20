@@ -30,6 +30,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun BalanceSection(
     tokenCredits: Long,
+    refillAmount: Long,
     isLoading: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -88,8 +89,14 @@ internal fun BalanceSection(
                             strokeWidth = 2.dp,
                         )
                     } else {
+                        val balanceText = if (refillAmount > 0) {
+                            val pct = (100.0 * tokenCredits / refillAmount).toInt()
+                            "${formatNumber(tokenCredits)} / ${formatNumber(refillAmount)} ($pct%)"
+                        } else {
+                            formatNumber(tokenCredits)
+                        }
                         Text(
-                            text = formatNumber(tokenCredits),
+                            text = balanceText,
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
                         )

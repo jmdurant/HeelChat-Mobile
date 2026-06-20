@@ -138,8 +138,9 @@ data class SettingsUiState(
     val memoriesEnabled: Boolean = true,
     val showMemoryDialog: Boolean = false,
     val editingMemory: Memory? = null,
-    // Balance
+    // Balance (real PromptLab credits via the proxy /balance route)
     val tokenCredits: Long = 0,
+    val refillAmount: Long = 0,
     val isBalanceLoading: Boolean = false,
     // Avatar
     val showAvatarDialog: Boolean = false,
