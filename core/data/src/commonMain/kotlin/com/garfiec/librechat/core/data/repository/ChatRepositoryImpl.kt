@@ -6,6 +6,7 @@ import com.garfiec.librechat.core.common.result.safeApiCall
 import com.garfiec.librechat.core.model.FileReference
 import com.garfiec.librechat.core.model.StreamEvent
 import com.garfiec.librechat.core.model.request.AddedConversation
+import com.garfiec.librechat.core.model.request.ChatGenerationParameters
 import com.garfiec.librechat.core.model.request.EphemeralAgent
 import com.garfiec.librechat.core.model.response.ChatStatusResponse
 import com.garfiec.librechat.core.network.api.ChatApi
@@ -40,6 +41,7 @@ class ChatRepositoryImpl(
         isRegenerate: Boolean,
         isContinued: Boolean,
         webSearch: Boolean,
+        generationParameters: ChatGenerationParameters,
         files: List<FileReference>?,
         addedConvo: AddedConversation?,
         ephemeralAgent: EphemeralAgent?,
@@ -63,6 +65,7 @@ class ChatRepositoryImpl(
             isRegenerate = isRegenerate,
             isContinued = isContinued,
             webSearch = webSearch,
+            generationParameters = generationParameters,
             files = files,
             addedConvo = addedConvo,
             ephemeralAgent = ephemeralAgent,

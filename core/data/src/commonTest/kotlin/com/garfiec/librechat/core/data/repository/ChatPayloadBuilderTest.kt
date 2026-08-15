@@ -1,5 +1,6 @@
 package com.garfiec.librechat.core.data.repository
 
+import com.garfiec.librechat.core.model.request.ChatGenerationParameters
 import com.garfiec.librechat.core.model.request.ChatRequest
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
@@ -116,5 +117,41 @@ class ChatPayloadBuilderTest {
         assertNull(req.messageId)
         val encoded = json.encodeToString(ChatRequest.serializer(), req)
         assertFalse("\"messageId\"" in encoded, "messageId must be omitted when not provided (regenerate/continue)")
+    }
+
+    @Test
+    fun selectedGenerationParametersAreSerialized() {
+        val req = ChatPayloadBuilder.build(
+            text = "hi",
+            conversationId = null,
+            endpoint = "azureOpenAI",
+            model = "azure-chatgpt-5.4-mini",
+            generationParameters = ChatGenerationParameters(
+                temperature = 0.4,
+                topP = 0.8,
+                maxOutputTokens = 4_096,
+                maxContextTokens = 128_000,
+                reasoningEffort = "low",
+                effort = "high",
+                stop = listOf("END", "DONE"),
+                system = "Be concise.",
+            ),
+        )
+
+        assertEquals("low", req.reasoningEffort)
+        assertEquals("high", req.effort)
+        assertEquals(0.4, req.temperature)
+        assertEquals(0.8, req.topP)
+        assertEquals(listOf("END", "DONE"), req.stop)
+
+        val encoded = json.encodeToString(ChatRequest.serializer(), req)
+        assertTrue("\"reasoning_effort\":\"low\"" in encoded)
+        assertTrue("\"effort\":\"high\"" in encoded)
+        assertTrue("\"temperature\":0.4" in encoded)
+        assertTrue("\"top_p\":0.8" in encoded)
+        assertTrue("\"maxOutputTokens\":4096" in encoded)
+        assertTrue("\"maxContextTokens\":128000" in encoded)
+        assertTrue("\"stop\":[\"END\",\"DONE\"]" in encoded)
+        assertTrue("\"system\":\"Be concise.\"" in encoded)
     }
 }

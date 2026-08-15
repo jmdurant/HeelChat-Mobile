@@ -214,6 +214,7 @@ class MessageEditingDelegate(
                 isRegenerate = isRegenerate,
                 isContinued = isContinued,
                 webSearch = webSearchEnabled,
+                generationParameters = requestBuilder.currentGenerationParameters(),
                 files = files,
                 ephemeralAgent = ephemeralAgent,
                 isTemporary = state.isTemporaryChat,

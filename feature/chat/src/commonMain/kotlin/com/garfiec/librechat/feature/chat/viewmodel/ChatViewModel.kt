@@ -919,6 +919,7 @@ class ChatViewModel(
             parentMessageId = lastMessageId,
             agentId = effectiveAgentId,
             webSearch = spec.modelParameters.webSearch,
+            generationParameters = requestBuilder.currentGenerationParameters(),
             files = fileRefs.takeIf { it.isNotEmpty() },
             addedConvo = effectiveAddedConvo,
             ephemeralAgent = spec.ephemeralAgent,

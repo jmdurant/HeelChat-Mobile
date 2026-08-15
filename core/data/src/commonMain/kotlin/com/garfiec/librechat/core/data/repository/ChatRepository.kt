@@ -4,6 +4,7 @@ import com.garfiec.librechat.core.common.result.Result
 import com.garfiec.librechat.core.model.FileReference
 import com.garfiec.librechat.core.model.StreamEvent
 import com.garfiec.librechat.core.model.request.AddedConversation
+import com.garfiec.librechat.core.model.request.ChatGenerationParameters
 import com.garfiec.librechat.core.model.request.EphemeralAgent
 import com.garfiec.librechat.core.model.response.ChatStatusResponse
 import kotlinx.coroutines.flow.Flow
@@ -26,6 +27,7 @@ interface ChatRepository {
         isRegenerate: Boolean = false,
         isContinued: Boolean = false,
         webSearch: Boolean = false,
+        generationParameters: ChatGenerationParameters = ChatGenerationParameters(),
         files: List<FileReference>? = null,
         addedConvo: AddedConversation? = null,
         ephemeralAgent: EphemeralAgent? = null,

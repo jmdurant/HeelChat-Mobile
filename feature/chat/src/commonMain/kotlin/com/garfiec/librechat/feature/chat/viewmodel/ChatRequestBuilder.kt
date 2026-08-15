@@ -2,7 +2,9 @@ package com.garfiec.librechat.feature.chat.viewmodel
 
 import com.garfiec.librechat.core.common.ToolConstants
 import com.garfiec.librechat.core.data.endpoint.EndpointDispatch
+import com.garfiec.librechat.core.model.request.ChatGenerationParameters
 import com.garfiec.librechat.core.model.request.EphemeralAgent
+import com.garfiec.librechat.core.ui.components.ModelParameters
 
 /**
  * Builds the per-send request pieces shared by every chat-send path (new message, edit,
@@ -29,6 +31,37 @@ class ChatRequestBuilder(
             endpointName = state.selectedEndpoint,
             endpointConfigs = state.endpointConfigs,
             endpointKeyStates = state.endpointKeyStates,
+        )
+    }
+
+    /** Snapshots the selected UI controls into data-layer request values. */
+    fun currentGenerationParameters(): ChatGenerationParameters {
+        val parameters = stateHandle.state.modelParameters
+        val defaults = ModelParameters.DEFAULT
+        val dynamic = parameters.dynamicValues
+
+        fun selected(key: String): String? = dynamic[key]?.takeIf { it.isNotBlank() }
+        fun splitTags(value: String?): List<String>? = value
+            ?.split(',', '\n')
+            ?.map { it.trim() }
+            ?.filter { it.isNotEmpty() }
+            ?.takeIf { it.isNotEmpty() }
+
+        return ChatGenerationParameters(
+            temperature = parameters.temperature.takeIf { it != defaults.temperature }?.toDouble(),
+            topP = parameters.topP.takeIf { it != defaults.topP }?.toDouble(),
+            maxOutputTokens = parameters.maxOutputTokens,
+            maxContextTokens = parameters.maxContextTokens,
+            system = parameters.customInstructions.takeIf { it.isNotBlank() },
+            reasoningEffort = selected("reasoning_effort"),
+            effort = selected("effort"),
+            thinkingLevel = selected("thinkingLevel"),
+            stop = splitTags(selected("stop")),
+            promptPrefix = selected("promptPrefix"),
+            modelLabel = selected("modelLabel") ?: parameters.customName.takeIf { it.isNotBlank() },
+            maxTokens = selected("maxTokens")?.toIntOrNull(),
+            resendFiles = parameters.resendFiles.takeIf { it },
+            imageDetail = selected("imageDetail"),
         )
     }
 
